@@ -1,9 +1,10 @@
 import 'package:hive/hive.dart';
+import 'package:uuid/uuid.dart';
 
-import 'ShoppingItem.dart';
+part 'ShoppingList.g.dart';
 
 
-@HiveType(typeId : 1)
+@HiveType(typeId : 1, adapterName: "ShoppingListAdapter")
 class ShoppingList {
 
   @HiveField(0)
@@ -17,4 +18,15 @@ class ShoppingList {
 
   @HiveField(3)
   DateTime updatedAt;
+
+  ShoppingList(String title) {
+    var uuid = Uuid();
+    this.id = uuid.v1();
+    this.title = title;
+  }
+
+  ShoppingList.populate(String uuid, String title) {
+    this.id = uuid;
+    this.title = title;
+  }
 }
