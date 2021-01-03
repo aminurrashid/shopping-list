@@ -1,6 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart' as path_provider;
+import 'package:shopping_list/list/ShoppingListService.dart';
 
-void main() {
+import 'db.dart';
+import 'list/ShoppingItem.dart';
+import 'list/ShoppingList.dart';
+
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final directory = await path_provider.getApplicationDocumentsDirectory();
+  await Db.initiateDB(directory.path);
   runApp(MyApp(
     items: List<ListItem>.generate(
       10,
@@ -10,6 +20,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  ShoppingListService service = new ShoppingListServiceImpl();
   final List<ListItem> items;
 
   MyApp({Key key, @required this.items}) : super(key: key);
@@ -17,6 +28,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final title = 'Shopping List';
+//    ShoppingList list = service.addList(new ShoppingList("Monthly grocery shopping"));
+//    ShoppingItem listItem = new ShoppingItem("daal", "1 kg", 230, list.id);
+//    ShoppingItem listItem2 = new ShoppingItem("Aata", "1 kg", 50, list.id);
+//    service.addItem(listItem);
+//    service.addItem(listItem2);
+//    List<ShoppingList> lists = service.getAll();
+//    List<ShoppingItem> shoppingItems = service.getShoppingItems(list.id);
+//    print(lists.length);
+//    print(shoppingItems.length);
 
     return MaterialApp(
       title: title,
